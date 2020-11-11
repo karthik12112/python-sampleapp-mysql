@@ -1,0 +1,19 @@
+---
+  cluster: karthik-test
+  cpu: 256
+  memory: 512
+  network: awsvpc
+  secret: pythonmysql
+  ecr: pythonapp
+  containerDefinition:
+    name: python
+    image: pythonapp
+    essential: True
+    portMappings: 80
+  serviceDefinition:
+    containerDesiredCount: 2
+  mysql:
+    instanceClass: db.t2.micro
+    name: pythonmysql
+  alb:
+    port: 80

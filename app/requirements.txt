@@ -1,0 +1,4 @@
+flask
+mysqlclient
+boto3
+mysql-connector-python
