@@ -1,4 +1,4 @@
-FROM python
+FROM 661159855470.dkr.ecr.us-west-2.amazonaws.com/python:latest
 
 copy app /app
 
