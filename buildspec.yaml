@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - yum update -y && yum install zip unzip -y
+  build:
+    commands:
+      - zip -r sample-app.zip . -x '*.git*'
+      - aws s3 cp sample-app.zip s3://pythonmysqlapp/

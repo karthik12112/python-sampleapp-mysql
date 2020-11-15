@@ -1,3 +1,4 @@
 #!/bin/bash
-tar -zcv --exclude='.git' --exclude='.gitignore' -f sample-app.tgz *
-aws s3 cp sample-app.tgz s3://pythonmysqlapp/
+zip -r sample-app.zip . -x '*.git*'
+#tar -zcv --exclude='.git' --exclude='.gitignore' -f sample-app.tgz *
+aws s3 cp sample-app.zip s3://pythonmysqlapp/
