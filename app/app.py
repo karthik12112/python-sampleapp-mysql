@@ -64,8 +64,8 @@ MAIN_DB = db.cursor()
 @app.route("/")
 def hello():
     #curl -i http://$Server_IP:$Server_Port/
-    return "<H1>Welcome to Python </H1>Checkpoint Date/Time: "+time.strftime("%c")+"\n"
-
+    return "<body style='background-color:powderblue;font-size:30px;'>This is a heading</body>"
+    
 @app.route("/health")
 def health():
     return "Healthy"
