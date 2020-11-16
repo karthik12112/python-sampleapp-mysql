@@ -5,10 +5,11 @@ phases:
       - apt-get update && apt-get install -y unzip zip
   build:
     commands:
-      - printenv
+      - tag = $CODEBUILD_WEBHOOK_HEAD_REF | sed 's:.*/::'
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo Building the Docker image..
-      - docker build -t $IMAGE_REPO_NAME:$VERSION .
-      - printf '{"ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest  > imageDetail.json
+      - docker build -t $IMAGE_REPO_NAME:$tag .
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$tag
+      - printf '{"ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$tag > imageDetail.json
       - zip -r sample-app.zip . -x '*.git*'
       - aws s3 cp sample-app.zip s3://pythonmysqlapp/
