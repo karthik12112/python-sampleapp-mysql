@@ -6,7 +6,6 @@ phases:
   build:
     commands:
       - tag=$(echo $CODEBUILD_WEBHOOK_HEAD_REF | sed 's:.*/::')
-      - printenv
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo Building the Docker image..
       - docker build -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$tag .
