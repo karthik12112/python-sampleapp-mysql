@@ -6,9 +6,11 @@ phases:
   build:
     commands:
       - tag=$CODEBUILD_WEBHOOK_HEAD_REF | sed 's:.*/::'
+      - echo $tag
+      - printenv
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - echo Building the Docker image..
-      - docker build -t $IMAGE_REPO_NAME:$tag .
+      - docker build -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$tag .
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$tag
       - printf '{"ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$tag > imageDetail.json
       - zip -r sample-app.zip . -x '*.git*'
