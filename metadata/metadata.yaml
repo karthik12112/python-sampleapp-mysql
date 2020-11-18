@@ -1,4 +1,5 @@
 ---
+  service: pythonapp
   cluster: karthik-test
   cpu: 256
   memory: 512
